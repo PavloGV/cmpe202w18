@@ -26,7 +26,8 @@ do
 		do 
 			echo '-------------------------------------------------------------------'
 			echo 'Thread number: '$t', inputSize: '${inputSizes[index]}', divType: '$d', measure: '$m
-			sudo pwd
+			echo 'pwd'
+			echo pwd
 			sudo python cmpe202w2018/project/filterpy/filterpy/kalman/tests/noisy_sine.py -l ${inputSizes[index]} -t $t
 			sudo perf stat -I $instCountNum -e cpu-cycles,instructions,branch-instructions,branch-misses,L1-dcache-load,LLC-loads -x, -o intermediate.csv python cmpe202w2018/project/filterpy/filterpy/kalman/tests/read_signal.py; python cmpe202w2018/project/filterpy/filterpy/kalman/tests/../../../../../pmu-tools/interval-normalize.py intermediate.csv > normOut.csv
 			sudo python cmpe202w2018/project/filterpy/filterpy/kalman/tests/plotMyData.py -f normOut.csv -d $d -m $m -t $t
