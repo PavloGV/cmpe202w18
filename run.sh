@@ -5,8 +5,8 @@
 # How to use:
 # 	- 	Initially running 'run.sh' will execute both the throughput and latency benchmarks
 #		with all threads all input sizes, etc... This can take a long time.
-sudo sh -c 'echo -1 >/proc/sys/kernel/perf_event_paranoid'
-sudo sh -c 'echo 0 >/proc/sys/kernel/nmi_watchdog'
+sh -c 'echo -1 >/proc/sys/kernel/perf_event_paranoid'
+sh -c 'echo 0 >/proc/sys/kernel/nmi_watchdog'
 echo '================ in run.sh =================='
 # declare -a divType=(256 64 16 4 1) 		# **** Corresponds inputSizes order *****
 # declare -a measName=(IPC BranchMPKI LoneMPKI LLC)
