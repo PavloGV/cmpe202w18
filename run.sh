@@ -27,9 +27,9 @@ do
 			echo '-------------------------------------------------------------------'
 			echo 'Thread number: '$t', inputSize: '${inputSizes[index]}', divType: '$d', measure: '$m
 			#pwd
-			python noisy_sine.py -l ${inputSizes[index]} -t $t
-			perf stat -I $instCountNum -e cpu-cycles,instructions,branch-instructions,branch-misses,L1-dcache-load,LLC-loads -x, -o intermediate.csv python read_signal.py; python ../../../../../pmu-tools/interval-normalize.py intermediate.csv > normOut.csv
-			python plotMyData.py -f normOut.csv -d $d -m $m -t $t
+			python /cmpe202w2018/project/filterpy/filterpy/kalman/tests/noisy_sine.py -l ${inputSizes[index]} -t $t
+			perf stat -I $instCountNum -e cpu-cycles,instructions,branch-instructions,branch-misses,L1-dcache-load,LLC-loads -x, -o intermediate.csv python /cmpe202w2018/project/filterpy/filterpy/kalman/tests/read_signal.py; python /cmpe202w2018/pmu-tools/interval-normalize.py intermediate.csv > normOut.csv
+			python /cmpe202w2018/project/filterpy/filterpy/kalman/tests/plotMyData.py -f normOut.csv -d $d -m $m -t $t
 			index=$(( $index + 1 ))	
 		done
 		index=0
@@ -50,15 +50,15 @@ echo 'Beginning Latnecy benchmark measurements '
 # run and measure the start/stop time of read_sine.py 100 times
 # get_run_time takes in the csv file, file number, and outputs txt files time1.txt, time2.txt, ... time100.txt
 # python noisy_sine.py -l 1350 -t 1
-python noisy_sine.py -l 200 -t 1
+python /cmpe202w2018/project/filterpy/filterpy/kalman/tests/noisy_sine.py -l 200 -t 1
 while [ $index -lt $instCountNum ]
 do
-	perf stat -I 100 -e cycles -x, -o intermediate.csv python read_signal.py; python ../../../../../pmu-tools/interval-normalize.py intermediate.csv > normOut.csv
-	python get_run_time.py -f normOut.csv -n $index
+	perf stat -I 100 -e cycles -x, -o intermediate.csv python /cmpe202w2018/project/filterpy/filterpy/kalman/tests/read_signal.py; python /cmpe202w2018/pmu-tools/interval-normalize.py intermediate.csv > normOut.csv
+	python /cmpe202w2018/project/filterpy/filterpy/kalman/tests/get_run_time.py -f normOut.csv -n $index
 	echo 'run: '$index
 	index=$(( $index + 1 ))
 done
-python plotLatency.py
+python /cmpe202w2018/project/filterpy/filterpy/kalman/tests/plotLatency.py
 echo 'Latency benchmark measurements completed'
 
 ### last things to do
