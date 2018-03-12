@@ -1,0 +1,32 @@
+FROM ubuntu:17.10
+RUN echo 'beginning docker setup'
+RUN apt-get update -y
+RUN apt-get upgrade -y
+
+RUN apt-get dist-upgrade -y
+RUN apt-get install apt-utils -y
+RUN apt-get install git -y
+RUN apt-get install linux-tools-common linux-tools-generic linux-tools-`uname -r` -y
+RUN apt-get install python -y
+RUN apt-get install python-pip -y
+RUN apt-get install python-tk -y
+RUN pip install matplotlib
+
+# set up my class directory
+RUN mkdir cmpe202w2018
+
+# git clone the pmu tool stuff
+RUN git clone https://github.com/andikleen/pmu-tools.git
+
+# setup my project directory
+RUN mkdir cmpe202w2018/project
+
+# git clone filter stuff
+RUN git clone https://github.com/rlabbe/filterpy.git cmpe202w2018/project
+
+# git clone my programs into /tests/ 
+RUN git clone https://github.com/PavloGV/cmpe202w18.git cmpe202w2018/project/filterpy/filterpy/kalman/tests/
+
+RUN ls /cmpe202w2018/project/filterpy/filterpy/kalman/tests/
+
+RUN bash /cmpe202w2018/project/filterpy/filterpy/kalman/tests/run.sh
